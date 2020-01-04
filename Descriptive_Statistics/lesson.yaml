@@ -1,0 +1,128 @@
+- Class: meta
+  Course: Statistics using R
+  Lesson: Descriptive Statistics
+  Author: Sathish G
+  Type: Standard
+  Organization: RVSIMSR
+  Version: 2.4.4
+
+- Class: text
+  Output: "Welcome to \"Statistics using R\" course !! The main objective of the course is to provide the students with the skills to use R for processing and analyzing quantitative data and to coach the students to process data and generate statistics for testing for differences between variables."
+
+- Class: text 
+  Output: "In this lesson, we will load the data (in csv format) and perform                         
+           1. Type Conversions, 
+           2. Labelling, 
+           3. Dealing with Missing Values, 
+           4. Data Types, 
+           5. Descriptive Statistics and Charts (Bar chart, Scatter Plot and Histogram)." 
+
+- Class: cmd_question
+  Output: As a first step towards our analysis, let us add a dataset called 'arbuthnot'.
+  CorrectAnswer: data(arbuthnot)
+  AnswerTests: any_of_exprs('data("arbuthnot")', 'data(arbuthnot)')
+  Hint: Type data(arbuthnot) and press Enter.
+
+- Class: text 
+  Output: "The Arbuthnot data set refers to Dr. John Arbuthnot, an 18th century 
+  physician, writer, and mathematician. He was interested in the ratio of newborn
+  boys to newborn girls, so he gathered the baptism records for children born in
+  London for every year from 1629 to 1710."
+
+- Class: cmd_question
+  Output: We can take a look at the data by typing its name into the console.
+  CorrectAnswer: arbuthnot
+  AnswerTests: any_of_exprs('arbuthnot')
+  Hint: Type arbuthnot and press Enter.
+
+- Class: text
+  Output: "However printing the whole dataset in the console is not that useful. One advantage of RStudio is that it comes with a built-in data viewer. Click on
+the name `arbuthnot` in the Environment pane (upper right window) that lists the objects in your workspace. This will bring up an alternative display of the 
+data set in the Data Viewer (upper left window). You can close the data viewer by clicking on the x in the upper lefthand corner"
+
+- Class: cmd_question
+  Output: Go on and click the arbuthnot data set from the global environment data pane.
+  CorrectAnswer: View(arbuthnot)
+  AnswerTests: any_of_exprs('View(arbuthnot)','view(arbuthnot)')
+  Hint: Type View(arbuthnot) and press Enter.
+
+- Class: text
+  Output: "Now, in the dataset, What you should see are four columns of numbers, each row representing a different year; the first entry in each row is simply the row number (an index 
+we can use to access the data from individual years if we want), the second is the year, and the third and fourth are the numbers of boys and girls baptized 
+that year, respectively"
+
+- Class: text
+  Output: "Note that the row numbers in the first column are not part of Arbuthnot's data. 
+R adds them as part of its printout to help you make visual comparisons. You can
+think of them as the index that you see on the left side of a spreadsheet. In 
+fact, the comparison to a spreadsheet will generally be helpful. R has stored 
+Arbuthnot's data in a kind of spreadsheet or table called a data frame."
+
+- Class: cmd_question
+  Output: You can see the dimensions of this data frame by typing dim(arbuthnot)
+  CorrectAnswer: dim(arbuthnot)
+  AnswerTests: any_of_exprs('dim(arbuthnot)')
+  Hint: Type dim(arbuthnot) and press Enter.
+
+- Class: text
+  Output: "This command should output `[1] 82 3`, indicating that there are 82 rows and 3 
+columns (we'll get to what the `[1]` means in a bit), just as it says next to 
+the object in your workspace"
+
+- Class: cmd_question
+  Output: You can see the names of these columns (or variables) by typing names(arbuthnot)
+  CorrectAnswer: names(arbuthnot)
+  AnswerTests: any_of_exprs('names(arbuthnot)')
+  Hint: Type names(arbuthnot) and press Enter.
+  
+- Class: mult_question
+  Output: How many variables are included in this data set? 
+  CorrectAnswer: 3
+  AnswerChoices: 2; 3; 4; 82; 1710
+  AnswerTests: omnitest(correctVal='3')
+  Hint: 'Variables are the labels of each column. Do not count the first printout like column with row numbers as a variable.'
+
+- Class: text
+  Output: "Now, let's find what are the years that are included in the dataset.? "
+  
+- Class: cmd_question
+  Output: You can take a look at the year variable in the Data Viewer to answer this question. However, I would recommend you to use count() to answer this question.
+  CorrectAnswer: count(arbuthnot, year)
+  AnswerTests: any_of_exprs('count(arbuthnot, year)')
+  Hint: Type count(arbuthnot, year) and press Enter.
+  
+- Class: text
+  Output: "You should see that the data frame contains the columns `year`,  `boys`, and 
+`girls`. At this point, you might notice that many of the commands in R look a 
+lot like functions from math class; that is, invoking R commands means supplying
+a function with some number of arguments. The `dim` and `names` commands, for 
+example, each took a single argument, the name of a data frame."
+
+- Class: text
+  Output: "Let's start to examine the data a little more closely."
+
+- Class: cmd_question
+  Output: We can access the data in a single column of a data frame separately using a command like arbuthnot$boys
+  CorrectAnswer: arbuthnot$boys
+  AnswerTests: any_of_exprs('arbuthnot$boys')
+  Hint: Type arbuthnot$boys and press Enter.
+
+- Class: text
+  Output: "This command will only show the number of boys baptized each year. The dollar
+sign basically says 'go to the data frame that comes before me, and find the 
+variable that comes after me'"
+
+- Class: mult_question
+  Output: What command would you use to extract just the counts of girls born? 
+  CorrectAnswer: arbuthnot$girls
+  AnswerChoices: arbuthnot$girls; arbuthnot$boys; girls; arbuthnot[girls]; $girls
+  AnswerTests: omnitest(correctVal='arbuthnot$girls')
+  Hint: 'Remember how we accessed the single column boys from the data frame.'
+
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so
+    that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint
