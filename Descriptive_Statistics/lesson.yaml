@@ -5,7 +5,7 @@
   Type: Standard
   Organization: RVSIMSR
   Version: 2.4.4
-
+    
 - Class: text
   Output: "Welcome to \"Statistics using R\" course !! The main objective of the course is to provide the students with the skills to use R for processing and analyzing quantitative data and to coach the students to process data and generate statistics for testing for differences between variables."
 
