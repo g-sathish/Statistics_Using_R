@@ -26,7 +26,7 @@ getLog <- function(){
 submit_log <- function(){
   
   # Please edit the link below
-  pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSdLC1_8DJKAIEWUlhIjoHQrgJ4e0k8ESS2TszB8iX1mS8u3OA/viewform?usp=pp_url"
+  pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSdLC1_8DJKAIEWUlhIjoHQrgJ4e0k8ESS2TszB8iX1mS8u3OA/viewform?entry.1733728592"
   
   # Do not edit the code below
   if(!grepl("=$", pre_fill_link)){
@@ -34,7 +34,7 @@ submit_log <- function(){
   }
   
   p <- function(x, p, f, l = length(x)){if(l < p){x <- c(x, rep(f, p - l))};x}
-  
+    
   temp <- tempfile()
   log_ <- getLog()
   nrow_ <- max(unlist(lapply(log_, length)))
