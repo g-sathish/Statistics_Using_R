@@ -1,3 +1,2 @@
-tidyverse
-statsr
 base64enc
+tidyverse
