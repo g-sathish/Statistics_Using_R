@@ -26,7 +26,7 @@ getLog <- function(){
 submit_log <- function(){
   
   # Please edit the link below
-  pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSdLC1_8DJKAIEWUlhIjoHQrgJ4e0k8ESS2TszB8iX1mS8u3OA/viewform?usp=pp_url"
+  pre_fill_link <- "https://docs.google.com/forms/d/e/1FAIpQLSdLC1_8DJKAIEWUlhIjoHQrgJ4e0k8ESS2TszB8iX1mS8u3OA/viewform?entry.1500142855"
   
   # Do not edit the code below
   if(!grepl("=$", pre_fill_link)){
@@ -50,4 +50,8 @@ submit_log <- function(){
   write.csv(log_tbl, file = temp, row.names = FALSE)
   encoded_log <- base64encode(temp)
   browseURL(paste0(pre_fill_link, encoded_log))
+}
+
+vectorAddition <- function() {
+  paste0(arbuthnot$boys + arbuthnot$girls)
 }

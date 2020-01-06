@@ -1,2 +1,4 @@
 base64enc
 tidyverse
+statsr
+ggplot2
