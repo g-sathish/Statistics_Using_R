@@ -175,6 +175,31 @@ variable that comes after me'"
   CorrectAnswer: mutate(arbuthnot, total = boys + girls)
   AnswerTests: any_of_exprs('mutate(arbuthnot, total = boys + girls)','arbuthnot %>% mutate(total = boys + girls)')
   Hint: Type mutate(arbuthnot, total = boys + girls) and press Enter.
+  
+- Class: text
+  Output: "We'll be using this new vector to generate some plots, so we'll want to save it as a permanent column in our data frame."
+
+- Class: cmd_question
+  Output: Go ahead and assign the result of your previous statement `mutate(arbuthnot, total = boys + girls)` to the same dataset `arbuthnot` 
+  AnswerTests: any_of_exprs('arbuthnot <- mutate(arbuthnot, total = boys + girls)','arbuthnot <- arbuthnot %>% mutate(total = boys + girls)')
+  Hint: Type arbuthnot <- mutate(arbuthnot, total = boys + girls) and press Enter.
+
+- Class: text
+  Output: "What in the world is going on here? The `%>%` operator is called the `piping` operator. Basically, it takes the output of the current line and pipes it into the following line of code."
+
+- Class: text
+  Output: "Where is the new variable? When you make changes to variables in your dataset, click on the name of the dataset again to update it in the data viewer."
+
+- Class: text
+  Output: "You'll see that there is now a new column called `total` that has been tacked on to the data frame. The special symbol `<-` performs an *assignment*, taking the output of one line of code and saving it into an object in your workspace. In this case, you already have an object called `arbuthnot`, so this command updates that data set with the new mutated column."
+  
+- Class: text
+  Output: "We can make a plot of the total number of baptisms per year with the following command. ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line()"
+
+- Class: cmd_question
+  Output: Go ahead and create the plot yourself and see it. 
+  AnswerTests: any_of_exprs('ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line()')
+  Hint: Type ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line() and press Enter.
 
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?

@@ -5,7 +5,7 @@
   Type: Standard
   Organization: RVSIMSR
   Version: 2.4.4
-  
+    
 - Class: text
   Output: "Welcome to \"Statistics using R\" course !! The main objective of the course is to provide the students with the skills to use R for processing and analyzing quantitative data and to coach the students to process data and generate statistics for testing for differences between variables."
 
@@ -52,9 +52,7 @@ we can use to access the data from individual years if we want), the second is t
 that year, respectively"
 
 - Class: text
-  Output: "Note that the row numbers in the first column are not part of Arbuthnot's data. 
-R adds them as part of its printout to help you make visual comparisons. You can
-think of them as the index that you see on the left side of a spreadsheet. In 
+  Output: "Note that the row numbers in the first column are not part of Arbuthnot's data. R adds them as part of its printout to help you make visual comparisons. You can think of them as the index that you see on the left side of a spreadsheet. In 
 fact, the comparison to a spreadsheet will generally be helpful. R has stored 
 Arbuthnot's data in a kind of spreadsheet or table called a data frame."
 
@@ -175,6 +173,31 @@ variable that comes after me'"
   CorrectAnswer: mutate(arbuthnot, total = boys + girls)
   AnswerTests: any_of_exprs('mutate(arbuthnot, total = boys + girls)','arbuthnot %>% mutate(total = boys + girls)')
   Hint: Type mutate(arbuthnot, total = boys + girls) and press Enter.
+  
+- Class: text
+  Output: "We'll be using this new vector to generate some plots, so we'll want to save it as a permanent column in our data frame."
+
+- Class: cmd_question
+  Output: Go ahead and assign the result of your previous statement `mutate(arbuthnot, total = boys + girls)` to the same dataset `arbuthnot` 
+  AnswerTests: any_of_exprs('arbuthnot <- mutate(arbuthnot, total = boys + girls)','arbuthnot <- arbuthnot %>% mutate(total = boys + girls)')
+  Hint: Type arbuthnot <- mutate(arbuthnot, total = boys + girls) and press Enter.
+
+- Class: text
+  Output: "What in the world is going on here? The `%>%` operator is called the `piping` operator. Basically, it takes the output of the current line and pipes it into the following line of code."
+
+- Class: text
+  Output: "Where is the new variable? When you make changes to variables in your dataset, click on the name of the dataset again to update it in the data viewer."
+
+- Class: text
+  Output: "You'll see that there is now a new column called `total` that has been tacked on to the data frame. The special symbol `<-` performs an *assignment*, taking the output of one line of code and saving it into an object in your workspace. In this case, you already have an object called `arbuthnot`, so this command updates that data set with the new mutated column."
+  
+- Class: text
+  Output: "We can make a plot of the total number of baptisms per year with the following command. ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line()"
+
+- Class: cmd_question
+  Output: Go ahead and create the plot yourself and see it. 
+  AnswerTests: any_of_exprs('ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line()')
+  Hint: Type ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line() and press Enter.
 
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
