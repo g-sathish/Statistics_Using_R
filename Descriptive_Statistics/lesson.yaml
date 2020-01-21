@@ -5,17 +5,12 @@
   Type: Standard
   Organization: RVSIMSR
   Version: 2.4.4
-    
+
 - Class: text
   Output: "Welcome to \"Statistics using R\" course !! The main objective of the course is to provide the students with the skills to use R for processing and analyzing quantitative data and to coach the students to process data and generate statistics for testing for differences between variables."
 
 - Class: text 
-  Output: "In this lesson, we will load the data (in csv format) and perform                         
-           1. Type Conversions, 
-           2. Labelling, 
-           3. Dealing with Missing Values, 
-           4. Data Types, 
-           5. Descriptive Statistics and Charts (Bar chart, Scatter Plot and Histogram)." 
+  Output: "In this lesson, we will load the data (as a tibble) and perform 1. Type Conversions, 2. Labelling, 3. Dealing with Missing Values, 4. Data Types, 5. Descriptive Statistics and Charts (Bar chart, Scatter Plot and Histogram)." 
 
 - Class: cmd_question
   Output: As a first step towards our analysis, let us add a dataset called 'arbuthnot'.
@@ -24,10 +19,7 @@
   Hint: Type data(arbuthnot) and press Enter.
 
 - Class: text 
-  Output: "The Arbuthnot data set refers to Dr. John Arbuthnot, an 18th century 
-  physician, writer, and mathematician. He was interested in the ratio of newborn
-  boys to newborn girls, so he gathered the baptism records for children born in
-  London for every year from 1629 to 1710."
+  Output: "The Arbuthnot data set refers to Dr. John Arbuthnot, an 18th century physician, writer, and mathematician. He was interested in the ratio of newborn boys to newborn girls, so he gathered the baptism records for children born in London for every year from 1629 to 1710."
 
 - Class: cmd_question
   Output: We can take a look at the data by typing its name into the console.
@@ -36,9 +28,7 @@
   Hint: Type arbuthnot and press Enter.
 
 - Class: text
-  Output: "However printing the whole dataset in the console is not that useful. One advantage of RStudio is that it comes with a built-in data viewer. Click on
-the name `arbuthnot` in the Environment pane (upper right window) that lists the objects in your workspace. This will bring up an alternative display of the 
-data set in the Data Viewer (upper left window). You can close the data viewer by clicking on the x in the upper lefthand corner"
+  Output: "However printing the whole dataset in the console is not that useful. One advantage of RStudio is that it comes with a built-in data viewer. Click on the name `arbuthnot` in the Environment pane (upper right window) that lists the objects in your workspace. This will bring up an alternative display of the data set in the Data Viewer (upper left window). You can close the data viewer by clicking on the x in the upper lefthand corner"
 
 - Class: cmd_question
   Output: Go on and click the arbuthnot data set from the global environment data pane.
@@ -47,14 +37,10 @@ data set in the Data Viewer (upper left window). You can close the data viewer b
   Hint: Type View(arbuthnot) and press Enter.
 
 - Class: text
-  Output: "Now, in the dataset, What you should see are four columns of numbers, each row representing a different year; the first entry in each row is simply the row number (an index 
-we can use to access the data from individual years if we want), the second is the year, and the third and fourth are the numbers of boys and girls baptized 
-that year, respectively"
+  Output: "Now, in the dataset, What you should see are four columns of numbers, each row representing a different year; the first entry in each row is simply the row number (an index we can use to access the data from individual years if we want), the second is the year, and the third and fourth are the numbers of boys and girls baptized that year, respectively"
 
 - Class: text
-  Output: "Note that the row numbers in the first column are not part of Arbuthnot's data. R adds them as part of its printout to help you make visual comparisons. You can think of them as the index that you see on the left side of a spreadsheet. In 
-fact, the comparison to a spreadsheet will generally be helpful. R has stored 
-Arbuthnot's data in a kind of spreadsheet or table called a data frame."
+  Output: "Note that the row numbers in the first column are not part of Arbuthnot's data. R adds them as part of its printout to help you make visual comparisons. You canthink of them as the index that you see on the left side of a spreadsheet. In fact, the comparison to a spreadsheet will generally be helpful. R has stored Arbuthnot's data in a kind of spreadsheet or table called a data frame."
 
 - Class: cmd_question
   Output: You can see the dimensions of this data frame by typing dim(arbuthnot)
@@ -63,9 +49,7 @@ Arbuthnot's data in a kind of spreadsheet or table called a data frame."
   Hint: Type dim(arbuthnot) and press Enter.
 
 - Class: text
-  Output: "This command should output `[1] 82 3`, indicating that there are 82 rows and 3 
-columns (we'll get to what the `[1]` means in a bit), just as it says next to 
-the object in your workspace"
+  Output: "This command should output `[1] 82 3`, indicating that there are 82 rows and 3 columns (we'll get to what the `[1]` means in a bit), just as it says next to the object in your workspace"
 
 - Class: cmd_question
   Output: You can see the names of these columns (or variables) by typing names(arbuthnot)
@@ -90,11 +74,7 @@ the object in your workspace"
   Hint: Type count(arbuthnot, year) and press Enter.
   
 - Class: text
-  Output: "You should see that the data frame contains the columns `year`,  `boys`, and 
-`girls`. At this point, you might notice that many of the commands in R look a 
-lot like functions from math class; that is, invoking R commands means supplying
-a function with some number of arguments. The `dim` and `names` commands, for 
-example, each took a single argument, the name of a data frame."
+  Output: "You should see that the data frame contains the columns `year`,  `boys`, and `girls`. At this point, you might notice that many of the commands in R look a lot like functions from math class; that is, invoking R commands means supplyinga function with some number of arguments. The `dim` and `names` commands, for example, each took a single argument, the name of a data frame."
 
 - Class: text
   Output: "Let's start to examine the data a little more closely."
@@ -106,9 +86,7 @@ example, each took a single argument, the name of a data frame."
   Hint: Type arbuthnot$boys and press Enter.
 
 - Class: text
-  Output: "This command will only show the number of boys baptized each year. The dollar
-sign basically says 'go to the data frame that comes before me, and find the 
-variable that comes after me'"
+  Output: "This command will only show the number of boys baptized each year. The dollarsign basically says 'go to the data frame that comes before me, and find the variable that comes after me'"
 
 - Class: mult_question
   Output: What command would you use to extract just the counts of girls born? 
@@ -198,6 +176,127 @@ variable that comes after me'"
   Output: Go ahead and create the plot yourself and see it. 
   AnswerTests: any_of_exprs('ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line()')
   Hint: Type ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line() and press Enter.
+
+- Class: cmd_question
+  Output: Note that using `geom_line()` instead of `geom_point()` results in a line plot instead of a scatter plot. You want both? Just layer them on using '+' and the function you want to layer upon. For example- ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line() + geom_point()
+  AnswerTests: any_of_exprs('ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line() + geom_point()')
+  Hint: Type ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line() + geom_point() and press Enter.
+
+- Class: cmd_question
+  Output: Now, generate a plot of the proportion of boys born over time. What do you see? 
+  AnswerTests: any_of_exprs('ggplot(data = arbuthnot, aes(x = year, y = boys)) + geom_point() + geom_line()', 'ggplot(data = arbuthnot, aes(x = year, y = boys)) + geom_point()','ggplot(data = arbuthnot, aes(x = year, y = boys)) + geom_line()')
+  Hint: Type ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_point() and press Enter. You could also use geom_line() or both layers as you wish.
+
+- Class: text
+  Output: "Finally, in addition to simple mathematical operators like subtraction and division, you can ask R to make comparisons like greater than, `>`, less than, `<`, and equality, `==`. For example, we can ask if boys outnumber girls in each year with the expression arbuthnot <- arbuthnot %>% mutate(more_boys = boys > girls)"
+
+- Class: cmd_question
+  Output: Go ahead and type the mutate query and see the result. Do not forget to store the result dataframe back to arbuthnot variable.
+  AnswerTests: any_of_exprs('arbuthnot <- arbuthnot %>% mutate(more_boys = boys > girls)')
+  Hint: Type arbuthnot <- arbuthnot %>% mutate(more_boys = boys > girls) and press Enter.
+
+- Class: text
+  Output: "This command add a new variable to the `arbuthnot` data frame containing the values of either `TRUE` if that year had more boys than girls, or `FALSE` if that year did not (the answer may surprise you). This variable contains different kind of data than we have considered so far. All other columns in the `arbuthnot` data frame have values are numerical (the year, the number of boys and girls). Here, we've asked R to create *logical* data, data where the values are either `TRUE` or `FALSE`. In general, data analysis will involve many different kinds of data types, and one reason for using R is that it is able to represent and compute with many of them."
+
+- Class: text
+  Output: "In the previous few pages, you recreated some of the displays and preliminary analysis of Arbuthnot's baptism data. Next you will do a similar analysis,  but for present day birth records in the United States."
+
+- Class: cmd_question
+  Output: Load up the present day data.
+  AnswerTests: any_of_exprs('data(present)')
+  Hint: Type data(present) and press Enter.
+  
+- Class: text
+  Output: "The data are stored in a data frame called `present` which should now be loaded in your workspace."
+
+- Class: cmd_question
+  Output: Look at the dimensions of the dataset.
+  AnswerTests: any_of_exprs('dim(present)')
+  Hint: Type dim(present) and press Enter.
+
+- Class: cmd_question
+  Output: View the head of the dataset.
+  AnswerTests: any_of_exprs('head(present)')
+  Hint: Type head(present) and press Enter.
+
+- Class: cmd_question
+  Output: Look at the names of the variables in the dataset.
+  AnswerTests: any_of_exprs('names(present)')
+  Hint: Type names(present) and press Enter.
+
+- Class: mult_question
+  Output: How many variables are included in this data set? 
+  CorrectAnswer: arbuthnot$girls
+  AnswerChoices: 2; 3; 4; 74; 2013
+  AnswerTests: omnitest(correctVal='3')
+  Hint: 'Remember- You can tell count of the number of variables used by looking at the dimensions'
+
+- Class: cmd_question
+  Output: What years are included in this dataset?
+  AnswerTests: any_of_exprs('range(present$year)')
+  Hint: Use the `range` function and `present$year` as its argument.
+
+- Class: cmd_question
+  Output: Calculate the total number of births for each year and store these values in a new variable called `total` in the `present` dataset.
+  AnswerTests: any_of_exprs('present <- present %>% mutate(total = boys + girls)', 'present <- mutate(present, total = boys + girls)')
+  Hint: Use the mutate function to create a new column total and assign it with a value of boys + girls.
+
+- Class: cmd_question
+  Output: Now, calculate the proportion of boys born each year and store these values in a new variable called `prop_boys` in  the same dataset.
+  AnswerTests: any_of_exprs('present <- present %>% mutate(prop_boys = boys/total)', 'present <- mutate(present, prop_boys = boys/total)')
+  Hint: You can calculate proportion of boys by taking boys column and dividing it with the total number of boys + girls. i.e., total column.
+
+- Class: cmd_question
+  Output: Plot these values over time
+  AnswerTests: any_of_exprs('ggplot(data = present, aes(x = year, y = prop_boys)) + geom_point()','ggplot(data = present, aes(x = year, y = prop_boys)) + geom_point() + geom_smooth()','ggplot(data = present, aes(x = year, y = prop_boys)) + geom_line()','ggplot(data = present, aes(x = year, y = prop_boys)) + geom_line() + geom_point()','ggplot(data = present, aes(x = year, y = prop_boys)) + geom_point() + geom_line()')
+  Hint: Use ggplot() to plot the prop_boys over year.
+
+- Class: mult_question
+  Output: based on the plot determine if the following statement is true or false- The proportion of boys born in the US has decreased over time.  
+  CorrectAnswer: True
+  AnswerChoices: True; False
+  AnswerTests: omnitest(correctVal='True')
+  Hint: 'Refer the plot you plotted above to answer this question.'
+
+- Class: cmd_question
+  Output: Create a new variable called `more_boys` which contains the value of either `TRUE` if that year had more boys than girls, or `FALSE` if that year did not.
+  AnswerTests: any_of_exprs('present <- present %>% mutate(more_boys = boys > girls)','present <- mutate(present, more_boys = boys > girls)')
+  Hint: Remember how you've created more_boys variable in arbuthnot dataset.
+
+- Class: mult_question
+  Output: Based on the newly created variable `more_boys` which of the following statements is true? 
+  AnswerChoices: Every year there are more girls born than boys; Every year there are more boys born than girls; Half of the years there are more boys born, and the other half more girls born
+  AnswerTests: omnitest(correctVal='Every year there are more boys born than girls')
+  Hint: 'You can look at the 74 observations or you can count the number of TRUE or calculate the proportion of TRUEs'
+
+- Class: cmd_question
+  Output: Calculate the boy-to-girl ratio each year, and store these values in a new variable called `prop_boy_girl` in the `present` dataset.
+  AnswerTests: any_of_exprs('present <- present %>% mutate(prop_boy_girl = boys/girls)','present <- mutate(present, prop_boy_girl = boys/girls)')
+  Hint: Mutate a new variable with a value of boys/girls
+
+- Class: cmd_question
+  Output: Plot the newly created variable prop_boy_girl values over time.
+  AnswerTests: any_of_exprs('ggplot(data = present, aes(x = year, y = prop_boy_girl)) + geom_point()','ggplot(data = present, aes(x = year, y = prop_boy_girl)) + geom_line()','ggplot(data = present, aes(x = year, y = prop_boy_girl)) + geom_point() + geom_line()','ggplot(data = present, aes(x = year, y = prop_boy_girl)) + geom_point() + geom_smooth()')
+  Hint: Use ggplot() to plot newly created column prop_boy_girl over time.
+
+- Class: mult_question
+  Output: Based on the above plot, Which of the following best describes the trend?
+  AnswerChoices: There appears to be no trend in the boy-to-girl ratio from 1940 to 2013; There is initially an increase in boy-to-girl ratio, which peaks around 1960. After 1960 there is a decrease in the boy-to-girl ratio, but the number begins to increase in the mid 1970s; There is initially a decrease in the boy-to-girl ratio, and then an increase between 1960 and 1970, followed by a decrease; The boy-to-girl ratio has increased over time; There is an initial decrease in the boy-to-girl ratio born but this number appears to level around 1960 and remain constant since then
+  AnswerTests: omnitest(correctVal='There is initially a decrease in the boy-to-girl ratio, and then an increase between 1960 and 1970, followed by a decrease')
+  Hint: 'Look at plot you created recently to answer this question.'
+
+- Class: cmd_question
+  Output: How to anwer the question, In what year did we see the most total number of births in the U.S.?
+  AnswerTests: any_of_exprs('arrange(present, desc(total))')
+  Hint: Sort your dataset in descending order based on the `total` column. You can also do this interactively in the data viewer by clicking on the arrows next to the variable names.
+
+- Class: mult_question
+  Output: In what year did we see the most total number of births in the U.S.?
+  AnswerChoices: 1940; 1957; 1961; 1991; 2007
+  AnswerTests: omnitest(correctVal='2007')
+
+- Class: text
+  Output: "Now, that was it!! Hope you enjoyed the first lesson students. Please proceed to submit your log summary of the lesson to me for evaluation. You can take this course as many times as you wish and do not forget to make your submission. See you in the next lesson.s"
 
 - Class: mult_question
   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
