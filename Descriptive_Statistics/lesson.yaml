@@ -286,7 +286,7 @@
   Hint: 'Look at plot you created recently to answer this question.'
 
 - Class: cmd_question
-    Output: How to anwer the question, In what year did we see the most total number of births in the U.S.?
+  Output: How to anwer the question, In what year did we see the most total number of births in the U.S.?
   AnswerTests: any_of_exprs('arrange(present, desc(total))')
   Hint: Sort your dataset in descending order based on the `total` column. You can also do this interactively in the data viewer by clicking on the arrows next to the variable names.
 
