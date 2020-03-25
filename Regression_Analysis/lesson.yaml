@@ -1,0 +1,265 @@
+- Class: meta
+  Course: Statistics_using_R
+  Lesson: Regression Analysis
+  Author: your name goes here
+  Type: Standard
+  Organization: your organization's name goes here
+  Version: 2.4.4
+
+- Class: text
+  Output: Introduction to Regression Models.
+
+- Class: text
+  Output: Linear Regression is one of the most commonly used predictive modelling techniques. The aim of linear regression is to find a mathematical equation for a continuous response variable Y as a function of one or more X variables. So that you can use this regression model to predict the Y when only the X is known.
+
+- Class: text
+  Output: This mathematical equation can be generalised as follows - Y = B1 + B2 X + E Where, B1 is the intercept and B2 is the slope. Collectively, they are called as regression coefficients. E is the error term, which is the part of Y, the regression model is unable to explain.
+
+- Class: text
+  Output: For this analysis, we will use the cars dataset that comes with R by default.
+
+- Class: text
+  Output: cars is a standard built-in dataset, that makes it convenient to show linear regression in a simple fashion.
+
+- Class: text
+  Output: You can access this dataset by typing in cars in your R console.
+
+- Class: cmd_question
+  Output: Go ahead and type cars in your console to see the cars dataset.
+  CorrectAnswer: cars
+  AnswerTests: omnitest(correctExpr='cars')
+  Hint: Type 'cars' in the console without quotes.
+
+- Class: mult_question
+  Output: How many observations are in the dataset?
+  AnswerChoices: 6;50;100
+  CorrectAnswer: 50
+  AnswerTests: omnitest(correctVal='50')
+  Hint: Look at the number of observations printed when you typed cars in the R console.
+
+- Class: mult_question
+  Output: How many variables are there in the dataset?
+  AnswerChoices: 1;2;3
+  CorrectAnswer: 2
+  AnswerTests: omnitest(correctVal='2')
+  Hint: Look how many labelled columns are there in the dataset.
+
+- Class: cmd_question
+  Output: Lets print out the first six observations here. Go ahead and print the first six observations of the cars datset.
+  CorrectAnswer: head(cars)
+  AnswerTests: omnitest(correctExpr='head(cars)')
+  Hint: use head function.
+
+- Class: text
+  Output: The goal here is to establish a mathematical equation for dist as a function of speed, so you can use it to predict dist when ony the speed of the car is known. So it is desirable to build a linear regression model with the response variable as dist and the predictor as speed.
+
+- Class: text
+  Output: Before we begin building the regression model, it is a good practice to analyse and understand the variables.
+
+- Class: text
+  Output: The graphical analysis and correlation study below will help with this.
+
+- Class: text
+  Output: We can create scatter plot to visualize the linear relationship between the predictor and response.
+
+- Class: cmd_question
+  Output: You can create a scatter plot for dist Vs speed using plot(x = cars$speed, y = cars$dist))
+  CorrectAnswer: plot(x = cars$speed, y = cars$dist)
+  AnswerTests: omnitest(correctExpr='plot(x = cars$speed, y = cars$dist)')
+  Hint: Type plot(x = cars$speed, y = cars$dist) and hit enter.
+
+- Class: cmd_question
+  Output: If you want to regression line, you can do scatter.smooth(x = cars$speed, y = cars$dist). Go ahead and try it in the console.
+  CorrectAnswer: scatter.smooth(x = cars$speed, y = cars$dist)
+  AnswerTests: omnitest(correctExpr='scatter.smooth(x = cars$speed, y = cars$dist)')
+  Hint: Type scatter.smooth(x = cars$speed, y = cars$dist) and hit enter.
+
+- Class: text
+  Output: The scatter plot along with the smoothing line in the plot suggests a linear and positive relationship between the dist and speed variables. This is a good thing because, one of the underlying assumptions of linear regression is, the relationship between the response and predictor variables is linear and additive.
+
+- Class: text
+  Output: Next, we can use Box plot to spot any outlier observations in the variable. Having outliers in your predictor can drastically affect the predictions as they can affect the direction/slope of the line of best fit.
+
+- Class: text
+  Output: Generally, an outlier is any datapoint that lies outside the 1.5 * inter-quartile-range(IQR)
+
+- Class: text
+  Output: IQR (Inter Quartile Range) is calculated as the distance between the 25th percentile and 75th percentile varlues for that variable.
+
+- Class: cmd_question
+  Output: You can create a box plot for that variable speed using boxplot(cars$speed)
+  CorrectAnswer: boxplot(cars$speed)
+  AnswerTests: omnitest(correctExpr='boxplot(cars$speed)')
+  Hint: boxplot(cars$speed)
+
+- Class: cmd_question
+  Output: Go ahead and create a box plot for the variable distance.
+  CorrectAnswer: boxplot(cars$dist)
+  AnswerTests: omnitest(correctExpr='boxplot(cars$dist)')
+  Hint: boxplot(cars$dist)
+
+- Class: text
+  Output: As you can see the row with the value 120 in dist variable is an outlier. Handling an outlier is itself a separate area of study which we are not going to discuss in this lesson.
+
+- Class: text
+  Output: Correlation analysis studies the strength of relationship between two continuous variables. It involves computing the correlation coefficient between the two variables.
+
+- Class: text
+  Output: So what is correlation? and how is it helpful in linear regression?
+
+- Class: text
+  Output: Correlation is a statistical measure that shows the degree of linear dependence between two variables.
+
+- Class: text
+  Output: In order to compute correlation, the two variables must occur in pairs, just like what we have here with speed and dist.
+
+- Class: text
+  Output: Correlation can take values between -1 to +1. If one variable consistently increases with increasing value of the other, then they have a strong positive correlation ( value close to +1)
+
+- Class: text
+  Output: Similarly, if one consistenly decreases when the other increase, they have a strong negative correlation( value close to -1)
+
+- Class: text
+  Output: A value closer to 0 suggests a weak relationship between the variables. A low correlation probably suggests that much of variation of the response variable (Y) is unexplained by the predictor (X). In our case, you should probably look for better explanatory variables.
+
+- Class: text
+  Output: Which means, there is a strong positive relationship between them. So, the correlation between them will be closer to 1. However, correlation doesn't imply causation. In other words, if two variables have high correlation, it does not mean one variable 'causes' the value of the other variable to increase.
+
+- Class: text
+  Output: Correlation is only an aid to understand the relationship. You can only rely on logic and business reasoning to make that judgement.
+
+- Class: text
+  Output: So, how to compute correlation in R?
+
+- Class: cmd_question
+  Output: Simply use the cor() function with the two numeric variables as arguments.
+  CorrectAnswer: cor(cars$speed, cars$dist)
+  AnswerTests: omnitest(correctExpr='cor(cars$speed, cars$dist)')
+  Hint: cor(cars$speed, cars$dist)
+
+- Class: text
+  Output: Now that you have seen the linear relationship pictorially in the scatter plot and through correlation, lets try building the linear regression model. The function used for building linear models is lm()
+
+- Class: text
+  Output: You can build a linear regression model on our cars data as - lm(dist ~ speed, data = cars)
+
+- Class: cmd_question
+  Output: Go ahead and build the model yourself.
+  CorrectAnswer: lm(dist ~ speed, data = cars)
+  AnswerTests: omnitest(correctExpr='lm(dist ~ speed, data = cars)')
+  Hint: lm(dist ~ speed, data = cars)
+
+- Class: cmd_question
+  Output: Now assign the model result to a variable called model.
+  CorrectAnswer: model <- lm(dist ~ speed, data = cars)
+  AnswerTests: omnitest(correctExpr='model <- lm(dist ~ speed, data = cars)')
+  Hint: model <- lm(dist ~ speed, data = cars)
+
+- Class: cmd_question
+  Output: print the model using print(model)
+  CorrectAnswer: print(model)
+  AnswerTests: omnitest(correctExpr='print(model)')
+  Hint: print(model)
+
+- Class: text
+  Output: By building the linear regression model, we have established the relationship between the predictor and response in the form of a mathematical formula. i.e., dist as a function of speed.
+
+- Class: text
+  Output: For the above output, you can notice the coefficients part having two components. Intercept -17.579 and speed 3.932. These are also called the beta coefficients. In other words, dist = intercept + slope * speed, which after plugging in the values gives dist = 17.579 + 3.932 * speed.
+
+- Class: text
+  Output: Now the linear model is built and you have a formula that you can use to predict the dist value if a corresponding speed is known. Is this enough to actually use this model?
+
+- Class: text
+  Output: No. Because, before using a regression model to make predictions, you need to ensure that it is statistically significant. But how do you ensure this?
+
+- Class: text
+  Output: Lets begin by printing the summary statistics for model
+
+- Class: cmd_question
+  Output: You can do it using summary function over the model object.
+  CorrectAnswer: summary(model)
+  AnswerTests: omnitest(correctExpr='summary(model)')
+  Hint: summary(model)
+
+- Class: text
+  Output: First, let us check for statistical significance using p value. The summary statistics above tells us a number of things. one of them is the models p-value in the last line and the p-value of individual predictor variables in the extreme right column under coefficients.
+
+- Class: text
+  Output: We can consider a linear model to be statistically significant only when both these p-values are less than the pre-determined statistical significance level of 0.05. This can visually interpreted by the significance stars at the end of the row against each X variable. The more the stars beside the variable p-value, the more significant the variable.
+
+- Class: text
+  Output: Whenever there is a p-value, there is always a null and alternative hypothesis associated. So what is the null hypothesis in this case? 
+
+- Class: text
+  Output: In Linear Regression, the null hypothesis is that the beta coefficients associated with the variables is equal to zero. 
+
+- Class: text
+  Output: The alternative hypothesis is that the coefficients are not equal to zero. i.e., there exists a relationship between the independent variable in question and the dependent variable.
+
+- Class: text
+  Output: What is t-value in the summary? 
+
+- Class: text
+  Output: We can interpret the t-value as follows. A larger t-value indicates that it is less likely that the coefficient is not equal to zero purely by chance. So, higher the t-value, the better.
+
+- Class: text
+  Output: Pr(>|t|) or p-value is the probability that you get a t-value as high or higher than the observed value when the null hypothesis is true. i.e., the coefficient is equal to zero or that there is no relationship.
+
+- Class: text
+  Output: So if the Pr(>|t|) is low, the coefficients are significant (significantly different from zero). If the Pr(>|t|) is high, the coefficients are not significant.
+
+- Class: text
+  Output: What this means to us? when p-value is less than significance level (<0.05), you can safely reject the null hypothesis that the co-efficient of the predictor is zero.
+
+- Class: text
+  Output: In our case, model, both these p-values are well below the 0.05 threshold. So, you can reject the null hypothesis and conclude the model is indeed statistically significant.
+
+- Class: text
+  Output: It is very important for the model to be statistically significant before you can go ahead and use it to predict the dependent variable. Otherwise, the confidence in predicted values from that model reduces and may be construed as an event of chance.
+
+- Class: text
+  Output: Next, let us consider R-Squared and Adj R-Squared from the summary of our model.
+
+- Class: text
+  Output: The actual information in a data is the total variation it contains, remember?
+
+- Class: text
+  Output: What R-Squared tells us is the proportion of variation in the dependent (response) varaible that has been explained by this model.
+
+- Class: text
+  Output: As you add more X variables to your model, the R-squared value of the new bigger model will always be greater than that of the smaller subset. Can you imagine why?
+
+- Class: text
+  Output: This is because, since all the variables in the original model is also present, their contribution to explain the dependent variable will be present in the super-set as well. Therefore whatever new variable you add can only add (if not significantly) to the variation that was already explained. It is here, the adjusted R-squared value comes to help. 
+
+- Class: text
+  Output: Adjusted R-Squared is formulated such that it penalises the number of terms (read predictors) in your model. So, unlike R-Squared, as the number of predictors in the model increases, the adj-R-Squared may not always increase.
+
+- Class: text
+  Output: Therefore, when comparing nested models, it is a good practice to compare using adj-R-Squared rather than just R-Squared.
+
+- Class: text
+  Output: Lastly let us look at two more parameters from the summary , which are Standard Error and F-Statistic. Both standard errors and F-Statistic are measures of goodness of fit. The higher the F-Statistic, the better the model it is.
+
+- Class: text
+  Output: Let us go for predicting a value for an unknown input using our model. But, I'm skipping the cross validation part which is out of scope now but best considered when you're building your linear model.
+
+- Class: text
+  Output: Lets say we want to predict the distance for the speed value 12. You can use predict() function in R to predict the distance. 
+
+- Class: cmd_question
+  Output: Type predict(model, data.frame(speed = 12))
+  CorrectAnswer: predict(model, data.frame(speed = 12))
+  AnswerTests: omnitest(correctExpr='predict(model, data.frame(speed = 12))')
+  Hint: predict(model, data.frame(speed = 12))
+
+- Class: text
+  Output: That is the end of the lesson. Lets learn about multiple linear regression in our next lesson. Do not forget to submit your log for evaluation.You can take this course as many times as you wish and do not forget to make your submission. See you in the next lessons.
+
+- Class: mult_question
+  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: hint  
