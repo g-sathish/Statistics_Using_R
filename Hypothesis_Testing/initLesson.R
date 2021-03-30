@@ -12,3 +12,5 @@
 late_shipments <- read.fst(file.path(.get_course_path(), "Statistics_Using_R", "Hypothesis_Testing", "late_shipments.fst"))
 late_shipments_boot_distn <- read.fst(file.path(.get_course_path(), "Statistics_Using_R", "Hypothesis_Testing", "late_ship_boot_distn.fst"))
 dem_county_pres_joined <- read.fst(file.path(.get_course_path(), "Statistics_Using_R", "Hypothesis_Testing", "dem_county_pres_joined.fst"))
+
+colnames(late_shipments_boot_distn) <- c("replicate", "late_prop")

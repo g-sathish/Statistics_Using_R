@@ -27,10 +27,10 @@
   Hint: Just type View(late_shipments)
 
 - Class: cmd_question
-  Output: Calculate the proportion of late shipments in the sample. That is, the mean cases where the late column is "Yes".
-  CorrectAnswer: mean(late_shipments['late'] == "Yes")
-  AnswerTests: omnitest(correctExpr='mean(late_shipments["late"] == "Yes")')
-  Hint: Just type mean(late_shipments['late'] == "Yes")
+  Output: Calculate the proportion of late shipments in the sample. That is, the mean cases where the late column is "Yes". Assign the result to late_prop_samp
+  CorrectAnswer: late_prop_samp <- mean(late_shipments['late'] == "Yes")
+  AnswerTests: omnitest(correctExpr='late_prop_samp <- mean(late_shipments["late"] == "Yes")')
+  Hint: Just type late_prop_samp <- mean(late_shipments['late'] == "Yes")
   
 - Class: text
   Output: Calculating a z-score
@@ -57,7 +57,7 @@
   Hint: Type late_prop_hyp <- 0.06
 
 - Class: cmd_question
-  Output: Calculate the standard error. That is, the standard deviation of the bootstrap distribution. (Use the pipeline operator.). Use the variable name sd_late_prop to assign the summarized result of standard deviations of proportion of late shipments statistic (late_prop column)
+  Output: Calculate the standard error. That is, the standard deviation of the bootstrap distribution. Use the variable name sd_late_prop to assign the summarized result of standard deviations of proportion of late shipments statistic (late_prop column) and select the column sd_late_prop. Assign the final result to the variable std_error.
   CorrectAnswer: std_error <- late_shipments_boot_distn %>% summarize(sd_late_prop = sd(late_prop)) %>% select(sd_late_prop)
   AnswerTests: omnitest(correctExpr='std_error <- late_shipments_boot_distn %>% summarize(sd_late_prop = sd(late_prop)) %>% select(sd_late_prop)')
   Hint: Type std_error <- late_shipments_boot_distn %>% summarize(sd_late_prop = sd(late_prop)) %>% select(sd_late_prop)
@@ -66,7 +66,7 @@
   Output: Calculate the z-score. i.e.,From late_prop_samp, subtract hypothesized_prop, then divide by std_error. Assign the result to z_score.
   CorrectAnswer: z_score <- (late_prop_samp - late_prop_hyp) / std_error
   AnswerTests: omnitest(correctExpr='z_score <- (late_prop_samp - late_prop_hyp) / std_error')
-  Hint: Type std_error <- late_shipments_boot_distn %>% summarize(sd_late_prop = sd(late_prop)) %>% select(sd_late_prop)
+  Hint: Type z_score <- (late_prop_samp - late_prop_hyp) / std_error
 
 - Class: cmd_question
   Output: output and see the result of std_error.
@@ -171,10 +171,10 @@
   Hint: Type z_score <- (late_prop_samp - late_prop_hyp) / std_error
 
 - Class: cmd_question
-  Output: Calculate the p-value for the z-score, assuming a right-tailed test and assign the result to p_value. Go ahead and do p_value <- pnorm(z_score, lower.tail = FALSE)
-  CorrectAnswer: p_value <- pnorm(z_score, lower.tail = FALSE)
-  AnswerTests: omnitest(correctExpr='p_value <- pnorm(z_score, lower.tail = FALSE)')
-  Hint: Type p_value <- pnorm(z_score, lower.tail = FALSE)
+  Output: Calculate the p-value for the z-score, assuming a right-tailed test and assign the result to p_value. Go ahead and do p_value <- pnorm(as.numeric(z_score), lower.tail = FALSE)
+  CorrectAnswer: p_value <- pnorm(as.numeric(z_score), lower.tail = FALSE)
+  AnswerTests: omnitest(correctExpr='p_value <- pnorm(as.numeric(z_score), lower.tail = FALSE)')
+  Hint: Type p_value <- pnorm(as.numeric(z_score), lower.tail = FALSE)
 
 - Class: cmd_question
   Output: Check the result of p_value.
@@ -186,10 +186,10 @@
   Output: The p-value is a measure of the amount of evidence to reject the null hypothesis or not. By comparing the p-value to the significance level,\alpha , you can make a decision about which hypothesis to support.
 
 - Class: mult_question
-  Output: Which of the following is the correct conclusion from the decision rule for a significance level \alpha?
-  AnswerChoices: If the p <= \alpha, reject HA;If the p >= \alpha, reject HA;If the p <= \alpha, don't reject H0;If the p <= \alpha, reject H0.
-  CorrectAnswer: If the p <= \alpha, reject H0.
-  AnswerTests: omnitest(correctVal='If the p <= \alpha, reject H0.')
+  Output: Which of the following is the correct conclusion from the decision rule for a significance level alpha?
+  AnswerChoices: If the p <= alpha, reject HA;If the p >= alpha, reject HA;If the p <= alpha, don't reject H0;If the p <= alpha, reject H0
+  CorrectAnswer: If the p <= alpha, reject H0.
+  AnswerTests: omnitest(correctVal='If the p <= alpha, reject H0')
   Hint: 
 
 - Class: text
@@ -206,8 +206,8 @@
 
 - Class: cmd_question
   Output: Summarize the prop_late_shipments column of late_shipments_boot_distn to calculate the 95% confidence interval using the quantile method. Label the lower and upper CI values lower and upper.
-  CorrectAnswer: conf_int_quantile <- late_shipments_boot_distn %>% summarize(lower = quantile(prop_late_shipments, 0.025),upper = quantile(prop_late_shipments, 0.975))
-  AnswerTests: omnitest(correctExpr='conf_int_quantile <- late_shipments_boot_distn %>% summarize(lower = quantile(prop_late_shipments, 0.025),upper = quantile(prop_late_shipments, 0.975))')
+  CorrectAnswer: conf_int_quantile <- late_shipments_boot_distn %>% summarize(lower = quantile(late_prop, 0.025), upper = quantile(late_prop, 0.975))
+  AnswerTests: omnitest(correctExpr='conf_int_quantile <- late_shipments_boot_distn %>% summarize(lower = quantile(late_prop, 0.025), upper = quantile(late_prop, 0.975))')
   Hint: summarize the results according to the question. use the pipeline to supply the dataset.
 
 - Class: cmd_question
@@ -287,3 +287,30 @@
   CorrectAnswer: Not an error
   AnswerTests: omnitest(correctVal='Not an error')
   Hint: 
+
+- Class: text
+  Output: The hypothesis test for determining if there is a difference between the means of two populations uses a different type of test statistic to the z-scores you saw in Chapter one. It's called "t", and can be calculated from three values from each sample using this equation. t = (x_bar_child - x_bar_adult)/sqrt((sd_child^2/n_child)+(sd_adult^2/n_adult))
+
+- Class: text
+  Output: While trying to determine why some shipments are late, you may wonder if the weight of the shipments that were late is different from the weight of the shipments that were on time. The late_shipments dataset has been split into a "yes" group, where late == "Yes" and a "no" group where late == "No". The weight of the shipment is given in the weight_kilograms variable.
+
+- Class: text
+  Output: For convenience, the sample means for the two groups are available as xbar_no and xbar_yes. The sample standard deviations are s_no and s_yes. The sample sizes are n_no and n_yes.
+
+- Class: cmd_question
+  Output: Calculate the numerator of the test statistic and assign the result to the variable numerator.
+  CorrectAnswer: numerator <- xbar_no - xbar_yes
+  AnswerTests: omnitest(correctExpr='numerator <- xbar_no - xbar_yes')
+  Hint: Type numerator <- xbar_no - xbar_yes
+
+- Class: cmd_question
+  Output: Calculate the denominator of the test statistic and assign the result to denominator.
+  CorrectAnswer: denominator <- sqrt(s_no ^ 2 / n_no + s_yes ^2 / n_yes)
+  AnswerTests: omnitest(correctExpr='denominator <- sqrt(s_no ^ 2 / n_no + s_yes ^2 / n_yes)')
+  Hint: Type denominator <- sqrt(s_no ^ 2 / n_no + s_yes ^2 / n_yes)
+
+- Class: cmd_question
+  Output: Use those two numbers to calculate the test statistic and assign the result to t_stat
+  CorrectAnswer: t_stat <- numerator / denominator
+  AnswerTests: omnitest(correctExpr='t_stat <- numerator / denominator')
+  Hint: Type t_stat <- numerator / denominator
