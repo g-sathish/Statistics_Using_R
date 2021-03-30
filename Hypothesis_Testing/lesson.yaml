@@ -1,0 +1,289 @@
+- Class: meta
+  Course: Statistics_Using_R
+  Lesson: Hypothesis Testing
+  Author: Sathish G
+  Type: Standard
+  Organization: RVS IMSR
+  Version: 2.4.5
+
+- Class: text
+  Output: Hypothesis testing lets you ask questions about your datasets and answer them in a statistically rigorous way. In this course you'll learn how and when to use common tests like t-tests, proportion tests, and chi-square tests. You'll gain a deep understanding of how they work, and the assumptions that underlie them. You'll also learn how different hypothesis tests are related using the "There is only one test" framework, and use non-parametric tests that let you side-step the requirements of traditional hypothesis tests. Throughout the course, you'll explore a Stack Overflow user survey, and a dataset of late shipments of medical supplies.
+
+
+- Class: text
+  Output: The late_shipments dataset contains supply chain data on the delivery of medical supplies. Each row represents one delivery of a part. The late columns denotes whether or not the part was delivered late. A value of "Yes" means that the part was delivered late, and a value of "No" means the part was delivered on time.
+
+
+- Class: text
+  Output: Let's begin our analysis by calculating a point estimate (sample statistic), namely the proportion of late shipments.
+
+- Class: text
+  Output: late_shipments is available; dplyr is loaded.
+
+- Class: cmd_question
+  Output: Use View() to view the late_shipments dataset.
+  CorrectAnswer: View(late_shipments)
+  AnswerTests: omnitest(correctExpr='View(late_shipments)')
+  Hint: Just type View(late_shipments)
+
+- Class: cmd_question
+  Output: Calculate the proportion of late shipments in the sample. That is, the mean cases where the late column is "Yes".
+  CorrectAnswer: mean(late_shipments['late'] == "Yes")
+  AnswerTests: omnitest(correctExpr='mean(late_shipments["late"] == "Yes")')
+  Hint: Just type mean(late_shipments['late'] == "Yes")
+  
+- Class: text
+  Output: Calculating a z-score
+
+- Class: text
+  Output: Since variables have arbitrary ranges and units, we need to standardize them. For example, it would be silly if a hypothesis test gave a different answer if your variables were in Euros instead of US dollars. Standardization avoids that.
+
+- Class: text
+  Output: One standardized value of interest in a hypothesis test is called a z-score. To calculate it, we need three numbers, the sample statistic (point estimate), the hypothesized statistic, and the standard error of the statistic (which we estimate from the bootstrap distribution).
+
+- Class: text
+  Output: The sample statistic is late_prop_samp.
+
+- Class: text
+  Output: late_shipments_boot_distn is a bootstrap distribution of the proportion of late shipments. The proportion of late shipments statistic is in the late_prop column.
+
+- Class: text
+  Output: late_prop_samp and late_shipments_boot_distn are available; dplyr is loaded.
+  
+- Class: cmd_question
+  Output: Hypothesize that the proportion of late shipments is 6% and assign the proportion to the variable named late_prop_hyp.
+  CorrectAnswer: late_prop_hyp <- 0.06
+  AnswerTests: omnitest(correctExpr='late_prop_hyp <- 0.06')
+  Hint: Type late_prop_hyp <- 0.06
+
+- Class: cmd_question
+  Output: Calculate the standard error. That is, the standard deviation of the bootstrap distribution. (Use the pipeline operator.). Use the variable name sd_late_prop to assign the summarized result of standard deviations of proportion of late shipments statistic (late_prop column)
+  CorrectAnswer: std_error <- late_shipments_boot_distn %>% summarize(sd_late_prop = sd(late_prop)) %>% select(sd_late_prop)
+  AnswerTests: omnitest(correctExpr='std_error <- late_shipments_boot_distn %>% summarize(sd_late_prop = sd(late_prop)) %>% select(sd_late_prop)')
+  Hint: Type std_error <- late_shipments_boot_distn %>% summarize(sd_late_prop = sd(late_prop)) %>% select(sd_late_prop)
+
+- Class: cmd_question
+  Output: Calculate the z-score. i.e.,From late_prop_samp, subtract hypothesized_prop, then divide by std_error. Assign the result to z_score.
+  CorrectAnswer: z_score <- (late_prop_samp - late_prop_hyp) / std_error
+  AnswerTests: omnitest(correctExpr='z_score <- (late_prop_samp - late_prop_hyp) / std_error')
+  Hint: Type std_error <- late_shipments_boot_distn %>% summarize(sd_late_prop = sd(late_prop)) %>% select(sd_late_prop)
+
+- Class: cmd_question
+  Output: output and see the result of std_error.
+  CorrectAnswer: std_error
+  AnswerTests: omnitest(correctExpr='std_error')
+  Hint: Type std_error
+
+- Class: cmd_question
+  Output: output and see the result of z_score.
+  CorrectAnswer: z_score
+  AnswerTests: omnitest(correctExpr='z_score')
+  Hint: Type z_score
+
+- Class: mult_question
+  Output: Which of the following correctly matches up a criminal trial with properties of a hypothesis test?
+  AnswerChoices: Just as with criminal trials, there are more than two possible results at the conclusion of a hypothesis test;Just as the defendant is initially assumed not guilty, the null hypothesis is first assumed to be true;The defendant can be both guilty and not guilty for the crime charged and both the null and alternative hypotheses can be chosen at the end of the test;Just as a court can decline to give a verdict, it's possible for neither the null hypothesis nor the alternative hypothesis to be chosen at the end of the test;Just as the defendant is initially assumed guilty, the alternative hypothesis is first assumed to be true
+  CorrectAnswer: Just as the defendant is initially assumed not guilty, the null hypothesis is first assumed to be true
+  AnswerTests: omnitest(correctVal='Just as the defendant is initially assumed not guilty, the null hypothesis is first assumed to be true')
+  Hint: 
+
+- Class: text
+  Output: Determine the appropriate type of hypothesis test for answering these questions.
+
+- Class: mult_question
+  Output: Is there a difference between the voting preferences of 40-year-olds and those of 80-year-olds?
+  AnswerChoices: Two tails;Left tail;Right tail
+  CorrectAnswer: Two tails
+  AnswerTests: omnitest(correctVal='Two tails')
+  Hint: 
+
+- Class: mult_question
+  Output: Is there evidence to conclude that Belgian workers tend to make less income than italian workers?
+  AnswerChoices: Two tails;Left tail;Right tail
+  CorrectAnswer: Left tail
+  AnswerTests: omnitest(correctVal='Left tail')
+  Hint: 
+
+- Class: mult_question
+  Output: Does there tend to be more than 12 fluid ounces of soda per can?
+  AnswerChoices: Two tails;Left tail;Right tail
+  CorrectAnswer: Right tail
+  AnswerTests: omnitest(correctVal='Right tail')
+  Hint: 
+
+- Class: mult_question
+  Output: Should we expect Slack and Zoom to have dissimilar mean numbers of employees over the last three years?
+  AnswerChoices: Two tails;Left tail;Right tail
+  CorrectAnswer: Two tails
+  AnswerTests: omnitest(correctVal='Two tails')
+  Hint: 
+
+- Class: mult_question
+  Output: Are grapes lower in popularity than raisins, on average ?
+  AnswerChoices: Two tails;Left tail;Right tail
+  CorrectAnswer: Left tail
+  AnswerTests: omnitest(correctVal='Left tail')
+  Hint: 
+
+- Class: mult_question
+  Output: Do hamburgers have more calories than hot dogs, on average?
+  AnswerChoices: Two tails;Left tail;Right tail
+  CorrectAnswer: Right tail
+  AnswerTests: omnitest(correctVal='Right tail')
+  Hint: 
+
+- Class: mult_question
+  Output: Do cats tend to live longer than dogs?
+  AnswerChoices: Two tails;Left tail;Right tail
+  CorrectAnswer: Right tail
+  AnswerTests: omnitest(correctVal='Right tail')
+  Hint: 
+
+- Class: text
+  Output: Let's look at how to calculate p-values.
+
+- Class: text
+  Output: In order to determine whether to choose the null hypothesis or the alternative hypothesis, you need to calculate a p-value from the z-score.
+
+- Class: text
+  Output: Let's return to the late shipments dataset and the proportion of late shipments.
+
+- Class: text
+  Output: The null hypothesis, , is that the proportion of late shipments is six percent.H0
+
+- Class: text
+  Output: The alternative hypothesis,HA , is that the proportion of late shipments is greater than six percent.
+
+- Class: text
+  Output: The observed sample statistic, late_prop_samp, the null hypothesis statistic, late_prop_hyp (6%), and the bootstrap standard error, std_error are available.
+
+- Class: mult_question
+  Output: What type of test should be used for this alternative hypothesis?
+  AnswerChoices: Two-tailed;Left-tailed;Right-tailed;It doesn't matter. any one will do;A hypothesis test isn't appropriate to answer this question
+  CorrectAnswer: Right-tailed
+  AnswerTests: omnitest(correctVal='Right-tailed')
+  Hint: 
+
+- Class: cmd_question
+  Output: Calculate the z-score of late_prop_samp and assign the result to z_score. Go ahead and do z_score <- (late_prop_samp - late_prop_hyp) / std_error
+  CorrectAnswer: z_score <- (late_prop_samp - late_prop_hyp) / std_error
+  AnswerTests: omnitest(correctExpr='z_score <- (late_prop_samp - late_prop_hyp) / std_error')
+  Hint: Type z_score <- (late_prop_samp - late_prop_hyp) / std_error
+
+- Class: cmd_question
+  Output: Calculate the p-value for the z-score, assuming a right-tailed test and assign the result to p_value. Go ahead and do p_value <- pnorm(z_score, lower.tail = FALSE)
+  CorrectAnswer: p_value <- pnorm(z_score, lower.tail = FALSE)
+  AnswerTests: omnitest(correctExpr='p_value <- pnorm(z_score, lower.tail = FALSE)')
+  Hint: Type p_value <- pnorm(z_score, lower.tail = FALSE)
+
+- Class: cmd_question
+  Output: Check the result of p_value.
+  CorrectAnswer: p_value
+  AnswerTests: omnitest(correctExpr='p_value')
+  Hint: type p_value
+
+- Class: text
+  Output: The p-value is a measure of the amount of evidence to reject the null hypothesis or not. By comparing the p-value to the significance level,\alpha , you can make a decision about which hypothesis to support.
+
+- Class: mult_question
+  Output: Which of the following is the correct conclusion from the decision rule for a significance level \alpha?
+  AnswerChoices: If the p <= \alpha, reject HA;If the p >= \alpha, reject HA;If the p <= \alpha, don't reject H0;If the p <= \alpha, reject H0.
+  CorrectAnswer: If the p <= \alpha, reject H0.
+  AnswerTests: omnitest(correctVal='If the p <= \alpha, reject H0.')
+  Hint: 
+
+- Class: text
+  Output: Let's now take a look at how to calculate confidence intervals
+
+- Class: text
+  Output: If you give a single estimate of a sample statistic, you are bound to be wrong by some amount. For example, the hypothesized proportion of late shipments was 6%. Even if evidence suggests the null hypothesis that the proportion of late shipments is equal to this, for any new sample of shipments, the proportion is likely to be a little different. Consequently, it's a good idea to state a confidence interval. That is, you say "we are 95% 'confident' the proportion of late shipments is between A and B" (for some value of A and B).
+
+- Class: text
+  Output: Here, you'll use quantiles of the bootstrap distribution to calculate the confidence interval.
+
+- Class: text
+  Output: late_prop_samp and late_shipments_boot_distn are available; dplyr is loaded.
+
+- Class: cmd_question
+  Output: Summarize the prop_late_shipments column of late_shipments_boot_distn to calculate the 95% confidence interval using the quantile method. Label the lower and upper CI values lower and upper.
+  CorrectAnswer: conf_int_quantile <- late_shipments_boot_distn %>% summarize(lower = quantile(prop_late_shipments, 0.025),upper = quantile(prop_late_shipments, 0.975))
+  AnswerTests: omnitest(correctExpr='conf_int_quantile <- late_shipments_boot_distn %>% summarize(lower = quantile(prop_late_shipments, 0.025),upper = quantile(prop_late_shipments, 0.975))')
+  Hint: summarize the results according to the question. use the pipeline to supply the dataset.
+
+- Class: cmd_question
+  Output: Look at the value of conf_int_quantile
+  CorrectAnswer: conf_int_quantile
+  AnswerTests: omnitest(correctExpr='conf_int_quantile')
+  Hint: Type conf_int_quantile
+
+- Class: mult_question
+  Output: Does the confidence interval match up with the conclusion to stick with the original assumption that 6% is a reasonable value for the unknown population parameter?
+  AnswerChoices: Yes, since 0.06 is included in the 95% confidence interval and we failed to reject H0 due to a large p-value, the results are similar.;No, since 0.06 is included in the 95% confidence interval and we should have rejected H0 due to a large p-value, the results do not match.;No, there is no relationship between confidence intervals and hypothesis tests.
+  CorrectAnswer: Yes, since 0.06 is included in the 95% confidence interval and we failed to reject H0 due to a large p-value, the results are similar.
+  AnswerTests: omnitest(correctVal='Yes, since 0.06 is included in the 95% confidence interval and we failed to reject H0 due to a large p-value, the results are similar.')
+  Hint: 
+
+- Class: text
+  Output: Let's now look at Type I and type II errors
+
+- Class: text
+  Output: For hypothesis tests and for criminal trials, there are two states of truth, and two possible outcomes. Two combinations are correct test outcomes verdicts, and there are two ways it can go wrong.
+
+- Class: text
+  Output: The errors are known as false positives (or "type I errors"), and false negatives (or "type II errors").
+
+- Class: mult_question
+  Output: Rejecting the null hypothesis when in fact the null hypothesis is true.
+  AnswerChoices: False positive(Type I) errors;False negative(Type II) errors;Not an error
+  CorrectAnswer: False positive(Type I) errors
+  AnswerTests: omnitest(correctVal='False positive(Type I) errors')
+  Hint: 
+
+- Class: mult_question
+  Output: Finding the defendant guilty when in fact the defendant was innocent.
+  AnswerChoices: False positive(Type I) errors;False negative(Type II) errors;Not an error
+  CorrectAnswer: False positive(Type I) errors
+  AnswerTests: omnitest(correctVal='False positive(Type I) errors')
+  Hint: 
+
+- Class: mult_question
+  Output: Failing to reject the null hypothesis when in fact the null hypothesis is false.
+  AnswerChoices: False positive(Type I) errors;False negative(Type II) errors;Not an error
+  CorrectAnswer: False negative(Type II) errors
+  AnswerTests: omnitest(correctVal='False negative(Type II) errors')
+  Hint: 
+
+- Class: mult_question
+  Output: Finding the defendant not guilty when in fact the defendant did commit the crime.
+  AnswerChoices: False positive(Type I) errors;False negative(Type II) errors;Not an error
+  CorrectAnswer: False negative(Type II) errors
+  AnswerTests: omnitest(correctVal='False negative(Type II) errors')
+  Hint: 
+
+- Class: mult_question
+  Output: Rejecting the null hypothesis when in fact the null hypothesis is false.
+  AnswerChoices: False positive(Type I) errors;False negative(Type II) errors;Not an error
+  CorrectAnswer: Not an error
+  AnswerTests: omnitest(correctVal='Not an error')
+  Hint: 
+
+- Class: mult_question
+  Output: Failing to reject the null hypothesis when in fact the null hypothesis is true.
+  AnswerChoices: False positive(Type I) errors;False negative(Type II) errors;Not an error
+  CorrectAnswer: Not an error
+  AnswerTests: omnitest(correctVal='Not an error')
+  Hint: 
+
+- Class: mult_question
+  Output: Finding the defendant not guilty when in fact they were innocent.
+  AnswerChoices: False positive(Type I) errors;False negative(Type II) errors;Not an error
+  CorrectAnswer: Not an error
+  AnswerTests: omnitest(correctVal='Not an error')
+  Hint: 
+
+- Class: mult_question
+  Output: Finding the defendant guilty when in fact they did commit the crime.
+  AnswerChoices: False positive(Type I) errors;False negative(Type II) errors;Not an error
+  CorrectAnswer: Not an error
+  AnswerTests: omnitest(correctVal='Not an error')
+  Hint: 
